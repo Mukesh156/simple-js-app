@@ -1,0 +1,55 @@
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+  font-family: "Outfit", sans-serif;
+  font-size: 50px;
+  text-align: center;
+}
+
+h1 span {
+  background-color: rgb(100, 0, 0);
+  color: white;
+}
+
+:root {
+  font-size: 30px;
+  font-family: "Outfit", sans-serif;
+  font-weight: 300;
+  background-color: lightgray;
+  color: inherit;
+}
+
+.button-class {
+  border: none;
+  display: block;
+  font-family: inherit;
+  list-style-type: none;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #008000;
+  color: white;
+  width: 250px;
+  text-decoration: none;
+  padding: 30px;
+  border-radius: 10px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+  transition: 0.2s opacity;
+}
+
+button:hover {
+  color: white;
+  background-color: #cd6090;
+}
+
+.pokemon-list {
+  list-style: none;
+  text-align: center;
+  padding: 10px;
+}
+
+li {
+  padding: 10px;
+}
