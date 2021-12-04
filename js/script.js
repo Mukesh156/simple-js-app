@@ -49,7 +49,7 @@ let pokemonRepository = (function () {
   }
 
   function showDetails (pokemon){
-    console.log(pokemon.name);
+    document.write(pokemon.name);
   }
 
   return {
@@ -60,10 +60,6 @@ let pokemonRepository = (function () {
 })();
 
 pokemonRepository.add({ name: "Squirtle", height: 1, types: ["water"] });
-
-console.log(pokemonRepository.getAll());
-
-
 
 pokemonRepository.getAll().forEach(function (pokemon) {
   pokemonRepository.addListItem(pokemon);
