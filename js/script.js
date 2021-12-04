@@ -1,4 +1,6 @@
+//IIFE Implementation
 let pokemonRepository = (function () {
+
   let pokemonList = [
       {
         name: 'Bulbasaur',
@@ -16,43 +18,53 @@ let pokemonRepository = (function () {
         type: ['electric']
       },
     ];
-
+  function add(pokemon) {
+    if (
+      typeof pokemon === "object" &&
+      "name" in pokemon &&
+      "height" in pokemon &&
+      "types" in pokemon
+    ) {
+      pokemonList.push(pokemon);
+    } else {
+      console.log("pokemon is not correct");
+    }
+  }
   function getAll() {
     return pokemonList;
   }
-  function add(pokemon) {
-  pokemonList.push(pokemon);
-}
-    return {
-      getAll: getAll,
-      add: add
-    };
-  })();
+  function addListItem(pokemon){
+    let pokemonList = document.querySelector(".pokemon-list");
+    let listpokemon = document.createElement("li");
+    let button = document.createElement("button");
+    button.innerText = pokemon.name;
+    button.classList.add("button-class");
+    listpokemon.appendChild(button);
+    pokemonList.appendChild(listpokemon);
 
-  document.write ( pokemonRepository. getAll());
-
-
-  pokemonRepository.getAll().forEach(function(pokemon){
-       pokemonRepository.add(pokemon);
+    //Event listener
+    button.addEventListener('click', function () {
+      showDetails(pokemon);
     });
-    //
+  }
+
+  function showDetails (pokemon){
+    console.log(pokemon.name);
+  }
+
+  return {
+    add: add,
+    getAll: getAll,
+    addListItem: addListItem
+  };
+})();
+
+pokemonRepository.add({ name: "Squirtle", height: 1, types: ["water"] });
+
+console.log(pokemonRepository.getAll());
 
 
-// pokemonList.forEach(function(pokemon){
-//   document.write('<li>' + pokemone.name + ' ' + pokemon.height + ' ' + pokemon.type);
-// });
 
-
-
-
-
-// for (let i=0; i < pokemonList.length; i++) {
-//   document.write('<li>' + pokemonList[i].name + ' (height: ' + pokemonList[i].height + ')');
-//   if (pokemonList[i].height >= 1) {
-//     document.write('- Wow! That\'s big!');
-//   }  else if (pokemonList[i].height < 0.7 && pokemonList[i].height > 0.1 ) {
-//       document.write('- Oh! That\'s small!');
-//   }else {
-//    document.write('- That\'s average!')
-//   }
-// }
+pokemonRepository.getAll().forEach(function (pokemon) {
+  pokemonRepository.addListItem(pokemon);
+});
