@@ -49,7 +49,7 @@ let pokemonRepository = (function () {
   }
 
   function showDetails (pokemon){
-    document.write(pokemon.name);
+    console.log(pokemon.name, pokemon.height, pokemon.type);
   }
 
   return {
