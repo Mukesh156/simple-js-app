@@ -1,23 +1,9 @@
 //IIFE Implementation
 let pokemonRepository = (function () {
 
-  let pokemonList = [
-      {
-        name: 'Bulbasaur',
-        height: 0.7,
-        type: ['grass', 'poison']
-      },
-      {
-        name: 'Beedrill',
-        height: 1,
-        type: ['bug']
-      },
-      {
-        name: 'Pikachu',
-        height: 0.4,
-        type: ['electric']
-      },
-    ];
+  let pokemonList = [];
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
+
   function add(pokemon) {
     if (
       typeof pokemon === "object" &&
@@ -30,9 +16,11 @@ let pokemonRepository = (function () {
       console.log("pokemon is not correct");
     }
   }
+
   function getAll() {
     return pokemonList;
   }
+  
   function addListItem(pokemon){
     let pokemonList = document.querySelector(".pokemon-list");
     let listpokemon = document.createElement("li");
@@ -42,25 +30,78 @@ let pokemonRepository = (function () {
     listpokemon.appendChild(button);
     pokemonList.appendChild(listpokemon);
 
-    //Event listener
-    button.addEventListener('click', function () {
+     //Event listener
+     button.addEventListener('click', function(event) {
       showDetails(pokemon);
     });
   }
 
+
+    function loadList() {
+      return fetch(apiUrl).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        json.results.forEach(function (item) {
+          let pokemon = {
+            name: item.name,
+            detailsUrl: item.url
+          };
+          add(pokemon);
+          console.log(pokemon);
+        });
+      }).catch(function (e) {
+        console.error(e);
+      })
+    }
+  
+    function loadDetails(item) {
+      let url = item.detailsUrl;
+      return fetch(url).then(function (response) {
+        return response.json();
+      }).then(function (details) {
+        // Now we add the details to the item
+        item.imageUrl = details.sprites.front_default;
+        item.height = details.height;
+        item.types = details.types;
+      }).catch(function (e) {
+        console.error(e);
+        
+      });
+    }
+
+function add(pokemon) {
+  pokemonList.push(pokemon);
+};
+
   function showDetails (pokemon){
-    console.log(pokemon.name, pokemon.height, pokemon.type);
-  }
+    loadDetails(pokemon).then(function () {
+      console.log(pokemon);
+     console.log(pokemon.name, pokemon.height, pokemon.types);
+  });
+}
+
+// fetch('https://pokeapi.co/api/v2/pokemon/').then(function (response) {
+//   return response.json();
+// }).then(function (pokemonList) {
+//   console.log(pokemonList);
+// }).catch(function () {
+// });
 
   return {
     add: add,
     getAll: getAll,
-    addListItem: addListItem
+    addListItem: addListItem,
+    loadList: loadList,
+    loadDetails: loadDetails,
+    showDetails: showDetails
+
   };
 })();
 
-pokemonRepository.add({ name: "Squirtle", height: 1, types: ["water"] });
+// pokemonRepository.add({ name: "Squirtle", height: 1, types: ["water"] });
 
+pokemonRepository.loadList().then(function() {
 pokemonRepository.getAll().forEach(function (pokemon) {
   pokemonRepository.addListItem(pokemon);
+});
 });
