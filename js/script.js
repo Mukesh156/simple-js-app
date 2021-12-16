@@ -86,14 +86,12 @@ let pokemonRepository = (function () {
   // Height and Weight
   let heightElement = $('<p>' + 'Height: ' + pokemon.height + '</p>');
   let weightElement = $('<p>' + 'Weight: ' + pokemon.weight + '</p>');
-  let typesElement = $('<p>' + 'types: ' + pokemon.types + '</p>');
 
 
     modalTitle.append(nameElement);
     modalBody.append(imageElement);
     modalBody.append(heightElement);
     modalBody.append(weightElement);
-    modalBody.append(typesElement);
 
     $('#pokedex').modal();
     }
