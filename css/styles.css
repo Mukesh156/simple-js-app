@@ -17,8 +17,8 @@ h1 {
 button {
   list-style-type: none;
   cursor: pointer;
-  /* border-radius: 30px; */
-  /* text-align: right; */
+  border-radius: 30px;
+  text-align: right;
   margin-left: auto;
   margin-right: auto;
   display: block;
