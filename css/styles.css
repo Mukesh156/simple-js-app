@@ -6,6 +6,14 @@ h1 {
   font-family: "Outfit", sans-serif;
   font-size: 50px;
   text-align: center;
+  font-size: 1rem;
+}
+
+p {
+  font-family: "Outfit", sans-serif;
+  font-size: 50px;
+  text-align: center;
+  font-size: 1rem;
 }
 
 :root {
@@ -46,6 +54,7 @@ button:hover {
 .pokemon-list {
   list-style: none;
   text-align: center;
+  overflow: hidden;
 }
 
 li {
